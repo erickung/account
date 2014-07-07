@@ -1,0 +1,24 @@
+<thead>
+	<tr>
+		<th>id</th>
+		<th>用户名称</th>
+		<th>用户邮箱</th>
+		<th>用户状态</th>
+		<th>Action</th>
+	</tr>
+</thead>
+<tbody>
+	<%foreach from=$users item=user%>
+	<tr>
+		<td>$user->user_id</td>
+		<td>$user->user_name</td>
+		<td>$user->user_email</td>
+		<td>$user->user_status</td>
+		<td class=" ">
+			<a title="Edit" class="sepV_a" href="#"><i class="icon-pencil"></i></a>
+			<a title="View" class="sepV_a" href="#"><i class="icon-eye-open"></i></a>
+			<a title="Delete" href="#"><i class="icon-trash"></i></a>
+		</td>
+	</tr>
+	<%/foreach%>
+</tbody>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    	<%include file="<%$view%>/layouts/head.htm"%>
+    </head>
+    <body>
+    	<!-- 
+        <div id="loading_layer" style="display:none"><img src="<%$res%>/img/ajax_loader.gif" alt="" /></div>
+		 -->
+		<div id="maincontainer" class="clearfix">
+			<header>
+				<%include file="<%$view%>/layouts/horizontal_navigation.htm"%>				
+			</header>    
+			<div id="contentwrapper">                
+				<div class="main_content">       
+				
+					<%include file="<%$view%>/layouts/footprints.htm"%>      
+					     						
+					<div class="row-fluid">
+					    <div class="span12">
+					    	<%$content%>
+					    	<!--  
+							<div class="chat_box">
+								<div class="row-fluid">
+					                
+					            </div>
+							</div>
+							-->
+						</div>
+					</div>
+				
+					<!-- hide elements-->
+					<div class="hide">
+			    	
+					</div>                
+				</div>            
+			</div>            
+			<%include file="<%$layouts%>/vertical_navigation.htm"%>
+			<%include file="<%$view%>/layouts/js.htm"%>
+		</div>				
+		<script>
+	        $(document).ready(function() {
+	        	//* show all elements & remove preloader
+	        	$("html").removeClass("js");
+	            //setTimeout('$("html").removeClass("js")',80);
+	            eric.init();
+	            <%$scripts%>
+	        });
+	        
+	       // setInterval(notify, 10000);
+	        
+	        function notify()
+	        {
+	        	eric.request.ajaxPost('/dashboard/MattersWithDeal',{notify:1},function(count){
+	        		$.sticky("<a href='/dashboard/index' >您有"+count+"个处理事项</a>", {autoclose : 5000, position: "top-right", type: "st-info" });
+	        	});
+	        }
+		</script>	
+	</body>	
+	<iframe name="__hidden_call" style="display:none"></iframe>	
+</html>

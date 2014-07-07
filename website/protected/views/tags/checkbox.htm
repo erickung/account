@@ -1,0 +1,10 @@
+<%foreach from=$checkbox_data item=roles%>
+<div class="controls">
+	<%foreach from=$roles item=role%>
+	<label class="checkbox inline">
+		<input type="checkbox" <%if $role.checked%>checked="true"<%/if%>  name="<%$checkbox_name%>[]" value="<%$role.value%>">
+		<%$role.name%>
+	</label>
+	<%/foreach%>
+</div>
+<%/foreach%>

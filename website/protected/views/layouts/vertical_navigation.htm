@@ -1,0 +1,54 @@
+<a href="javascript:void(0)" class="sidebar_switch on_switch ttip_r" title="Hide Sidebar">Sidebar switch</a>
+<div class="sidebar">
+	
+	<div class="antiScroll">
+		<div class="antiscroll-inner">
+			<div class="antiscroll-content">
+		
+				<div class="sidebar_inner">
+					<form action="index.php?uid=1&amp;page=search_page" class="input-append" method="post" >
+						<input autocomplete="off" name="query" class="search_query input-medium" size="16" type="text" placeholder="Search..." /><button type="submit" class="btn"><i class="icon-search"></i></button>
+					</form>
+					<div id="side_accordion" class="accordion">
+						<div class="accordion-group">
+							<div class="accordion-heading <%if $selected_module->href=='dashboard/in' or $selected_module->href=='dashboard/out' %>sdb_h_active<%/if%>">
+								<a href="#collapseDashboard" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
+									<i class="icon-home"></i> 出入账
+								</a>
+							</div>
+							<div class="accordion-body collapse <%if $selected_module->href=='dashboard/in' or $selected_module->href=='dashboard/out' %>in<%/if%>" id="collapseDashboard">
+								<div class="accordion-inner">
+									<ul class="nav nav-list">
+										<li <%if $selected_module->href=='dashboard/in'%>class="active"<%/if%>><a href="/dashboard/in">入账</a></li>
+									</ul>
+									<ul class="nav nav-list">
+										<li <%if $selected_module->href=='dashboard/out'%>class="active"<%/if%>><a href="/dashboard/out">转账</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						
+						<div class="accordion-group">
+							<div class="accordion-heading <%if $selected_module->href=='custom/pass/info'%>sdb_h_active<%/if%>">
+								<a href="#collapseCustom" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
+									<i class="icon-cog"></i> 个人设置
+								</a>
+							</div>
+							<div class="accordion-body collapse <%if $selected_module->href=='custom/pass/info'%>in<%/if%>" id="collapseCustom">
+								<div class="accordion-inner">
+									<ul class="nav nav-list">
+										<li <%if $selected_module->href=='custom/pass/info'%>class="active"<%/if%>><a href="/custom/pass/info">密码修改</a></li>
+									</ul>
+                                    
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="push"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
