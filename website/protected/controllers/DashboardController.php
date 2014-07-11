@@ -1,4 +1,5 @@
 <?php
+require Yii::getPathOfAlias('application.components') . DS . 'WFJGateway.php';
 class DashboardController extends FController
 {
 	function actionIndex()
