@@ -13,25 +13,31 @@
 						<div class="accordion-group">
 							<div class="accordion-heading <%if $selected_module->href=='dashboard/in' or $selected_module->href=='dashboard/out' %>sdb_h_active<%/if%>">
 								<a href="#collapseDashboard" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
-									<i class="icon-home"></i> 出入账
+									<i class="icon-home"></i> 管理
 								</a>
 							</div>
-							<div class="accordion-body collapse <%if $selected_module->href=='dashboard/in' or $selected_module->href=='dashboard/out' %>in<%/if%>" id="collapseDashboard">
+							<div class="accordion-body collapse <%if $selected_module->href=='dashboard/in' or $selected_module->href=='dashboard/out'
+								or $selected_module->href=='dashboard/customer' %>in<%/if%>" id="collapseDashboard">
 								<div class="accordion-inner">
 									<ul class="nav nav-list">
-										<li <%if $selected_module->href=='dashboard/in'%>class="active"<%/if%>><a href="/dashboard/in">入账</a></li>
+										<li <%if $selected_module->href=='dashboard/in'%>class="active"<%/if%>><a href="/dashboard/in">入账管理</a></li>
 									</ul>
 									<ul class="nav nav-list">
-										<li <%if $selected_module->href=='dashboard/out'%>class="active"<%/if%>><a href="/dashboard/out">转账</a></li>
+										<li <%if $selected_module->href=='dashboard/out'%>class="active"<%/if%>><a href="/dashboard/out">转账管理</a></li>
+									</ul>
+									<ul class="nav nav-list">
+										<li <%if $selected_module->href=='dashboard/customer'%>class="active"<%/if%>><a href="/dashboard/customer">客户管理</a></li>
 									</ul>
 								</div>
 							</div>
+							
+							
 						</div>
 						
 						<div class="accordion-group">
 							<div class="accordion-heading <%if $selected_module->href=='custom/pass/info'%>sdb_h_active<%/if%>">
 								<a href="#collapseCustom" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
-									<i class="icon-cog"></i> 个人设置
+									<i class="icon-cog"></i> 设置
 								</a>
 							</div>
 							<div class="accordion-body collapse <%if $selected_module->href=='custom/pass/info'%>in<%/if%>" id="collapseCustom">

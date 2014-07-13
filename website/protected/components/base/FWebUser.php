@@ -1,7 +1,7 @@
 <?php
 class FWebUser extends WebUser
 {
-	function logout()
+	function logout($destroySession = true)
 	{
 		Root::removeCookie(RootConsts::TOKEN);
 		header("Location: /site/login");

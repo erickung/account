@@ -4,19 +4,13 @@
  * This is the model class for table "customer".
  *
  * The followings are the available columns in table 'customer':
- * @property integer $customer_id
- * @property string $user_id
- * @property string $mobile_num
- * @property string $name
- * @property integer $type
- * @property integer $status
- * @property string $address
- * @property integer $sex
- * @property string $birthday
- *
- * The followings are the available model relations:
- * @property User $user
- * @property CustomerPurchase[] $customerPurchases
+ * @property integer $id
+ * @property string $account_no
+ * @property string $account_name
+ * @property string $bank_name
+ * @property string $account_province
+ * @property string $account_city
+ * @property string $bank_all_name
  */
 class Customer extends RootActiveRecord
 {
@@ -36,8 +30,6 @@ class Customer extends RootActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-			'customerPurchases' => array(self::HAS_MANY, 'CustomerPurchase', 'customer_id'),
 		);
 	}
 
@@ -47,15 +39,13 @@ class Customer extends RootActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'customer_id' => 'Customer',
-			'user_id' => '销售',
-			'mobile_num' => '电话号码',
-			'name' => '客户名',
-			'type' => '客户类型',
-			'status' => '客户状态',
-			'address' => '地址',
-			'sex' => '性别',
-			'birthday' => '生日',
+			'id' => 'ID',
+			'account_no' => '收款账号',
+			'account_name' => '收款人名称',
+			'bank_name' => '开户支行',
+			'account_province' => '收款行所在省',
+			'account_city' => '收款行所在市',
+			'bank_all_name' => '开户银行',
 		);
 	}
 
@@ -77,15 +67,13 @@ class Customer extends RootActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('customer_id',$this->customer_id);
-		$criteria->compare('user_id',$this->user_id,true);
-		$criteria->compare('mobile_num',$this->mobile_num,true);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('type',$this->type);
-		$criteria->compare('status',$this->status);
-		$criteria->compare('address',$this->address,true);
-		$criteria->compare('sex',$this->sex);
-		$criteria->compare('birthday',$this->birthday,true);
+		$criteria->compare('id',$this->id);
+		$criteria->compare('account_no',$this->account_no,true);
+		$criteria->compare('account_name',$this->account_name,true);
+		$criteria->compare('bank_name',$this->bank_name,true);
+		$criteria->compare('account_province',$this->account_province,true);
+		$criteria->compare('account_city',$this->account_city,true);
+		$criteria->compare('bank_all_name',$this->bank_all_name,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

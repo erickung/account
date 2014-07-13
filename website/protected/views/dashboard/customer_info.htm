@@ -1,0 +1,35 @@
+<%form id="form_customer_info" name="form_customer_info" action="/dashboard/customerEdit" method="POST" class="form-horizontal"%>
+<div class="control-group formSep">
+	<div class="span5">
+		<%input name='account_name' obj=$customer required=true%>
+	</div>
+	<div class="span5">
+		<%input name='account_no' obj=$customer required=true%>
+	</div>
+</div>
+<div class="control-group formSep">
+	<div class="span5">
+		<%input name='bank_name' obj=$customer required=true%>
+	</div>
+	<div class="span5">
+		<%input name='account_province' obj=$customer required=true%>
+	</div>
+</div>
+<div class="control-group formSep">
+	<div class="span5">
+		<%input name='account_city' obj=$customer required=true%>
+	</div>
+	<div class="span5">
+		<%input name='bank_all_name' obj=$customer required=true%>
+	</div>
+</div>
+
+<div class="control-group" align="left">
+		<div class="controls">
+			<input type="hidden" name="href" value="<%$href%>"/>
+			<input type="hidden" name="id" value="<%$customer->id%>"/>
+			<button type="submit" class="btn btn-gebo">保  存</button>
+			<button type="button" class="btn" onClick="eric.common.go();">返回</button>
+		</div>
+</div>
+<%/form%>

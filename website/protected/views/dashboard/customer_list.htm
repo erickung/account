@@ -1,0 +1,37 @@
+<div class="span12">
+	<h3 class="heading">客户列表</h3>
+	<div role="grid" class="dataTables_wrapper form-inline" id="dt_gal_wrapper">
+        <div class="row">
+        	<div class="span6">
+        		<a title="添加客户" href="/dashboard/customer/?action=info&href=/dashboard/customer" class="btn "><i class="splashy-documents_add"></i></a>
+    			<div  class="dataTables_length">
+		
+    			</div>
+    		</div>
+    	</div>
+        
+		<table id="smpl_tbl" class="table table-bordered table-striped table-hover">
+			<thead>
+				<tr>
+					<th>用户姓名</th>
+					<th>开户行</th>
+					<th>账号</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%foreach from=$customers item=item%>
+				<tr>
+					<td><%$item->account_name%></td>
+					<td><%$item->bank_all_name%></td>
+					<td><%$item->account_no%></td>
+					<td class=" ">
+						<a title="修改" class="splashy-hcard_edit" href="/dashboard/customer/?action=info&href=/dashboard/customer&id=<%$item->id%>"></a>
+					</td>
+				</tr>
+				<%/foreach%>
+				
+			</tbody>
+		</table>
+	</div>
+</div>

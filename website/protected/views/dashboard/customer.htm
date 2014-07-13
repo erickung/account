@@ -1,0 +1,51 @@
+<div class="span12">
+        <h3 class="heading">客户信息</h3>
+		<div class="row-fluid">
+			
+				
+					<div class="span12">
+					<fieldset>
+						<div class="tabbable tabbable-bordered">
+							<ul class="nav nav-tabs">
+								<li class="active"><a href="#customer_info" data-toggle="tab">客户列表</a></li>
+								
+								<!-- 
+								<li ><a href="#product" id="tab_product" data-toggle="tab">产品预约</a></li>
+								<li><a href="#publish_info" data-toggle="tab">跟踪记录</a></li>
+								<li><a href="#purchase_info" id="tab_purchase_info" data-toggle="tab">购买历史</a></li>
+								 -->
+							
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane active" id="customer_info">
+									<%require file="dashboard.customer_info"%>
+								</div>
+								<div class="tab-pane" id="product">
+							
+								</div>
+								<div class="tab-pane" id="publish_info">
+							
+								</div>
+								<div class="tab-pane" id="purchase_info">
+								
+								</div>
+								
+							</div>
+						</div>
+						<br>
+						
+					
+					
+					</fieldset>
+
+					</div>
+			
+			
+		</div>
+</div>
+
+<%asset css="lib/datepicker/datepicker.css"%>
+<%asset js="lib/datepicker/bootstrap-datepicker.min.js"%>
+<%javascript%>  
+
+<%/javascript%>
