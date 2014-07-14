@@ -1,4 +1,14 @@
-<%form id="form_customer_info" name="form_customer_info" action="/dashboard/customerEdit" method="POST" class="form-horizontal"%>
+<%form id="form_customer_info" name="form_customer_info" action="/dashboard/Withdrawals" method="POST" class="form-horizontal"%>
+
+<div class="control-group formSep">
+	<div class="span5">
+			<label class="control-label" for="amount">转账金额（元） <span class="f_req">*</span></label>
+	<div class="controls">
+		<input type="text" required="true" value="" class="input" id="amount" name="amount">
+	</div>
+	</div>
+</div>
+
 <div class="control-group formSep">
 	<div class="span5">
 		<%input name='account_name' obj=$customer required=true%>
@@ -24,10 +34,27 @@
 	</div>
 </div>
 
+
+
 <div class="control-group" align="left">
 		<div class="controls">
-			<button type="submit" class="btn btn-gebo">转账</button>
+			<button type="button" class="btn btn-gebo" onClick="withdraw()">转账</button>
 			<button type="button" class="btn" onClick="eric.common.go();">返回</button>
 		</div>
 </div>
 <%/form%>
+
+<script>
+function withdraw()
+{
+	var msg = '确定要向账户'+$('#account_name').val()+'('+$('#account_no').val()+')转账'+$('#amount').val()+'元吗';
+	if(confirm(msg))
+	{
+		$("#form_customer_info").submit();
+	}
+	else
+	{
+		
+	}
+}
+</script>

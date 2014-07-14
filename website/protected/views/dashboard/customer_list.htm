@@ -23,7 +23,7 @@
 				<%foreach from=$customers item=item%>
 				<tr>
 					<td><%$item->account_name%></td>
-					<td><%$item->bank_all_name%></td>
+					<td><%$item->bank_name%></td>
 					<td><%$item->account_no%></td>
 					<td class=" ">
 						<a title="修改" class="splashy-hcard_edit" href="/dashboard/customer/?action=info&href=/dashboard/customer&id=<%$item->id%>"></a>

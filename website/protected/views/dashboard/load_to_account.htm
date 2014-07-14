@@ -1,0 +1,30 @@
+<div class="span12">
+	<h3 class="heading">交易列表</h3>
+	<div role="grid" class="dataTables_wrapper form-inline" id="dt_gal_wrapper">
+		<table id="smpl_tbl" class="table table-bordered table-striped table-hover">
+			<thead>
+				<tr>
+					<th>客户姓名</th>
+					<th>开户行</th>
+					<th>账号</th>
+					<th>金额(元)</th>
+					<th>手续费(元)</th>
+					<th>交易时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%foreach from=$data item=item%>
+				<tr>
+					<td><%$item->customer->account_name%></td>
+					<td><%$item->customer->bank_name%></td>
+					<td><%$item->customer->account_no%></td>
+					<td><%$item->amount%></td>
+					<td><%$item->fee%></td>
+					<td><%$item->time%></td>
+				</tr>
+				<%/foreach%>
+				
+			</tbody>
+		</table>
+	</div>
+</div>

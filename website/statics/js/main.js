@@ -70,7 +70,7 @@ eric.response = {
 		);
 	},
 	error : function(msg){
-		if(!msg) msg = '提交成功！';
+		if(!msg) msg = '提交失败！';
 		jError(
 				msg,
 			    {

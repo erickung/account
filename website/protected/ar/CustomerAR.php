@@ -18,18 +18,20 @@ class CustomerAR extends Customer
 		$this->modifyByPk($this->id);
 	}
 	
-	public static function getAllCustomers()
+	public static function getAllCustomers($order='')
 	{
+		$criteria = new CDbCriteria();
+		if ($order) $criteria->order = $order;
 		static $customers = array();
 		if (empty($customers))
-			$customers = self::model()->findAll();
+			$customers = self::model()->findAll($criteria);
 		
 		return $customers;
 	}
 	
 	public static function getAllCustomerOptions()
 	{
-		$customers = self::getAllCustomers();
+		$customers = self::getAllCustomers('account_name asc');
 		$rnt = array();
 		foreach ($customers as $c)
 		{

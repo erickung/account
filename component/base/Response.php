@@ -16,7 +16,7 @@ class Response
 			} 
 			else 
 			{
-				self::showPostMsg("eric.response.success('提交成功！')");
+				self::showPostMsg("eric.response.success('提交成功！')", $url);
 			}
 			
 		} 

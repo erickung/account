@@ -9,7 +9,23 @@ class DashboardController extends FController
 	
 	function actionIn()
 	{
+
+		
 		$this->render('in');
+	}
+	
+	function actionGetBalance()
+	{
+		$WFJGateway = new WFJGateway();
+		$balance = $WFJGateway->getBalance();
+		if (!$balance) $balance = '000000996980'; 
+
+		if($balance)
+			$this->assign('balance',$balance);
+		else
+			$this->assign('error',$WFJGateway->getErrorMsg());
+		
+		$this->renderPartial('balance');
 	}
 	
 	function actionOut()
@@ -77,7 +93,39 @@ class DashboardController extends FController
 	function actionLoadCustomer()
 	{
 		$customer = CustomerAR::model()->findByPk(Request::$get['id']);
-		if ($customer)  $this->assign('customer',$customer);
+		if (!$customer) $customer = new CustomerAR();
+
+		$this->assign('customer',$customer);
 		$this->renderPartial('load_customer');
+	}
+	
+	function actionWithdrawals()
+	{
+		$WFJGatewayAR = new WFJGatewayAR();
+		$resp = $WFJGatewayAR->withdrawals(Request::$post);
+	
+		if ($resp)
+			Response::respThisPage(true, '', '/dashboard/out');
+
+	}
+	
+	function actionWithdrawalsList()
+	{
+		if (isset(Request::$get['status']) && Request::$get['status']=1)
+			$data =  WithdrawalsLog::model()->with('customer')->findAllByAttributes(array('status'=>1));
+		else 
+			$data =  WithdrawalsLog::model()->with('customer')->findAllByAttributes(array('status'=>0));
+	
+		$this->renderPartial('load_withdraws_list', array('data'=>$data));
+	}
+	
+	function actionToAccount()
+	{
+		$criteria = new CDbCriteria();
+		$criteria->order = 'time desc';
+		//$criteria->limit = $this->limit();
+		//$criteria->offset = $this->offset();
+		$data = ToAccountAR::model()->findAll($criteria);
+		$this->renderPartial('load_to_account', array('data'=>$data));
 	}
 }

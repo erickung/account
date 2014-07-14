@@ -11,11 +11,12 @@ class WFJGateway
 {
 	const REQEST_ERR = '请求失败，请重试';
 	const DEFAULT_ERR = '无法识别的错误';
+	const DEFAULT_MEMO = 'yuhaotest';
 
 	private static $config = array(
 			'userNO'=>'wfjtest',
 			'password'=>'wfjtest',
-			'aliasAccount'=>'yhaotest200',
+			'aliasAccount'=>'yhaoTest12344',
 			'channel'=>'wfjtest',
 			'transCode'=>'INQ',
 	);
@@ -69,7 +70,27 @@ class WFJGateway
 
 		return $resp['balance'];
 	}
-
+	
+	public function withdrawals($amount, $accountNo, $accountName, 
+			$bankName, $accountProvince, $accountCity, $bankAllName)
+	{
+		self::$config['transCode'] = 'WDC';
+		self::$config['amount'] = $amount;
+		self::$config['accountNo'] = $accountNo;
+		self::$config['accountName'] = $accountName;
+		self::$config['bankName'] = $bankName;
+		self::$config['accountProvince'] = $accountProvince;
+		self::$config['accountCity'] = $accountCity;
+		self::$config['bankAllName'] = $bankAllName;
+		self::$config['memo'] = self::DEFAULT_MEMO;
+		self::$config['recDepType'] = '00';
+		//RootTools::dump(self::$config);exit;
+		$HttpClient = new HttpClient($this->url);
+		$resp = $HttpClient->sendMessage(self::$config);
+		if (!$this->parseResponse($resp))  return false;
+		
+		return true;
+	}
 
 
 	public function getErrorMsg()

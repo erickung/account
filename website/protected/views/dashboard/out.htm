@@ -8,18 +8,18 @@
 						<div class="tabbable tabbable-bordered">
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#transtorm" data-toggle="tab">转入用户账户</a></li>
-								<li ><a href="#unsuccess_info" id="tab_product" data-toggle="tab">未入账列表</a></li>
-								<li ><a href="#success_info" id="tab_product" data-toggle="tab">已入账列表</a></li>
+								<li ><a href="#unsuccess_info" id="tab_product" data-toggle="tab" onClick="getWithdrawList(0)">未入账列表</a></li>
+								<li ><a href="#success_info" id="tab_product" data-toggle="tab" onClick="getWithdrawList(1)">已入账列表</a></li>
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane active" id="transtorm">
 									<%require file='dashboard.search'%>
 								</div>
 								<div class="tab-pane" id="unsuccess_info">
-							
+									<div id="unsuccess_info_list"></div>
 								</div>
 								<div class="tab-pane" id="success_info">
-							
+									<div id="success_info_list"></div>
 								</div>
 							</div>
 						</div>
@@ -34,3 +34,17 @@
 			
 		</div>
 </div>
+
+<script>
+function getWithdrawList(status)
+{
+	if(status)
+	{
+		eric.request.ajaxLoad('/dashboard/WithdrawalsList?status=1','success_info_list');
+	}
+	else
+	{
+		eric.request.ajaxLoad('/dashboard/WithdrawalsList','unsuccess_info_list');
+	}
+}
+</script>
