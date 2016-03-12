@@ -4,7 +4,7 @@ class UploadServ
 	private $adapter;
 	private $adapters = array(
 			FConsts::UPLOAD_FILE => array(
-					FConsts::PRODUCT_FILE_MODE => 'ProductFileUploader',
+					FConsts::FILE_MODE => 'FileUploader',
 
 			)
 	);
@@ -13,7 +13,7 @@ class UploadServ
 	private $max_size = 10240000;//2048*2048
 	private $mode;
 	
-	public function __construct($type=FConsts::UPLOAD_FILE, $mode=FConsts::PRODUCT_FILE_MODE , $path = UPLOAD_PATH)
+	public function __construct($type=FConsts::UPLOAD_FILE, $mode=FConsts::FILE_MODE , $path = UPLOAD_PATH)
 	{
 		Yii::import('application.components.service.upload.*');
 		$this->type = $type;

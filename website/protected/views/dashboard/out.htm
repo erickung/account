@@ -8,18 +8,47 @@
 						<div class="tabbable tabbable-bordered">
 							<ul class="nav nav-tabs">
 								<li class="active"><a href="#transtorm" data-toggle="tab">转入用户账户</a></li>
-								<li ><a href="#unsuccess_info" id="tab_product" data-toggle="tab" onClick="getWithdrawList()">转账列表</a></li>
-								<li ><a href="#success_info" id="tab_product" data-toggle="tab" onClick="getWithdrawBills()">下载转账账单</a></li>
+								<li ><a href="#upload" id="tab_product" data-toggle="tab" >上传下载</a></li>
+								<li ><a href="#unsuccess_info" id="tab_product" data-toggle="tab" onClick="getWithdrawList(0)">未入账列表</a></li>
+								<li ><a href="#success_info" id="tab_product" data-toggle="tab" onClick="getWithdrawList(1)">已入账列表</a></li>
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane active" id="transtorm">
 									<%require file='dashboard.search'%>
 								</div>
+								<div class="tab-pane" id="upload">
+								
+								<fieldset class="well">
+									<p class="f_legend">下载模板</p>								
+										<a href="/site/download">下载模板</a>		
+								</fieldset>
+	
+								<fieldset>
+									<p class="f_legend">上传转账数据（最多不超过50条数据）</p>
+						
+									<form target="__hidden_call" id="form_customer_info" name="form_customer_info" enctype="multipart/form-data" action="/site/upload" method="POST" class="form-horizontal well">
+										<div class="fileupload fileupload-new" data-provides="fileupload">				
+											
+											<span class="btn btn-file"><span class="fileupload-new">Select file</span><span class="fileupload-exists">Change</span><input type="file" name="file" id="file" /> </span>
+											<span class="fileupload-preview"></span>
+											<a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
+										</div>
+
+										<div>
+											<button type="submit" class="btn btn-gebo" >上传</button>
+										</div>
+									
+									</form>
+								</fieldset>
+									
+									
+									
+								</div>
 								<div class="tab-pane" id="unsuccess_info">
 									<div id="unsuccess_info_list"></div>
 								</div>
 								<div class="tab-pane" id="success_info">
-									<div id="bill_list"></div>
+									<div id="success_info_list"></div>
 								</div>
 							</div>
 						</div>
@@ -38,11 +67,13 @@
 <script>
 function getWithdrawList(status)
 {
-	eric.request.ajaxLoad('/dashboard/WithdrawalsList','unsuccess_info_list');
-}
-
-function getWithdrawBills()
-{
-	eric.request.ajaxLoad('/dashboard/getWithdrawBills?type=1','bill_list');
+	if(status)
+	{
+		eric.request.ajaxLoad('/dashboard/WithdrawalsList?status=1','success_info_list');
+	}
+	else
+	{
+		eric.request.ajaxLoad('/dashboard/WithdrawalsList','unsuccess_info_list');
+	}
 }
 </script>

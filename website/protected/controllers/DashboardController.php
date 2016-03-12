@@ -72,7 +72,7 @@ class DashboardController extends FController
 	
 	function actionCustomerEdit()
 	{
-		$customer = new CustomerAR();
+		$customer = new CustomerAR();  
 		
 		if (Request::$post['id'])
 		{

@@ -4,8 +4,8 @@ class WFJGatewayAR
 	public $error;
 	function withdrawals($info)
 	{
+		RootTools::dump($info);
 		$customer = CustomerAR::model()->findByAttributes(array('account_no'=>$info['account_no']));
-		
 		if (!$customer)
 		{
 			$customer = new CustomerAR();
