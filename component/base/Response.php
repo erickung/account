@@ -6,7 +6,7 @@ class Response
 		($boolean) ? Response::postSuccess($msg, $url) : Response::postFailure('提交失败！');
 	}
 	
-	public static function respThisPage($boolean, $js='', $url='')
+	public static function respThisPage($boolean, $js='', $url='', $msg='')
 	{
 		if ($boolean)
 		{
@@ -22,7 +22,14 @@ class Response
 		} 
 		else 
 		{
-			
+			if ($js)
+			{
+				self::showPostMsg($js);
+			}
+			else
+			{
+				self::showPostMsg("eric.response.error('$msg')");
+			}
 		}
 	}
 	

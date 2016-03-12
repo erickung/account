@@ -2,18 +2,38 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
-Source Server Version : 50524
+Source Server Version : 50612
 Source Host           : localhost:3306
 Source Database       : account
 
 Target Server Type    : MYSQL
-Target Server Version : 50524
+Target Server Version : 50612
 File Encoding         : 65001
 
-Date: 2014-07-14 17:46:40
+Date: 2014-08-03 17:25:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `bills`
+-- ----------------------------
+DROP TABLE IF EXISTS `bills`;
+CREATE TABLE `bills` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `date` int(11) NOT NULL,
+  `type` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '1=>提现，2=>充值',
+  `content` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bills
+-- ----------------------------
+INSERT INTO `bills` VALUES ('1', '20140730', '1', ',,2014-07-30,21:01:01,6225555555614333333321989,300,tixian,004177,658388838183813818388,0');
+INSERT INTO `bills` VALUES ('2', '20140731', '1', ',,2014-07-31,21:01:01,62255131313131313989,200,tixian,004177,658388838183813818388,0');
+INSERT INTO `bills` VALUES ('3', '20140730', '2', '808080580105558,,8377874489369943,2014-07-30,11:15:20,,8900,31,消费交易,R0LE1D,8377874489369943,1');
+INSERT INTO `bills` VALUES ('8', '20140731', '2', '808080580105558,,7952572013849918,2014-07-31,11:14:57,,16600,58,消费交易,R0LF1A,7952572013849918,1');
 
 -- ----------------------------
 -- Table structure for `customer`
@@ -29,14 +49,12 @@ CREATE TABLE `customer` (
   `bank_all_name` varchar(128) NOT NULL DEFAULT '' COMMENT '开户银行',
   PRIMARY KEY (`id`),
   UNIQUE KEY `account_no` (`account_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of customer
 -- ----------------------------
-INSERT INTO `customer` VALUES ('1', '32133313131222222223', '孔繁兴', '农行北京中关村支行', '北京', '北京', '农行北京中关村支行');
 INSERT INTO `customer` VALUES ('6', '6225603688111111', '于浩', '北京市招商银行万达支行', '北京', '北京', '招商银行');
-INSERT INTO `customer` VALUES ('7', '3213331313122222222', '孔繁兴', '农行北京中关村支行', '北京', '北京', '农业银行');
 
 -- ----------------------------
 -- Table structure for `log`
@@ -48,7 +66,7 @@ CREATE TABLE `log` (
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=>succ,-1=>false',
   `error_msg` varchar(1024) NOT NULL DEFAULT '',
   PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of log
@@ -65,6 +83,15 @@ INSERT INTO `log` VALUES ('9', '1', '1', '');
 INSERT INTO `log` VALUES ('10', '1', '-1', '请求失败，请重试');
 INSERT INTO `log` VALUES ('11', '1', '-1', '请求失败，请重试');
 INSERT INTO `log` VALUES ('12', '1', '1', '');
+INSERT INTO `log` VALUES ('13', '1', '1', '');
+INSERT INTO `log` VALUES ('14', '1', '-1', '提现金额不足1元');
+INSERT INTO `log` VALUES ('15', '1', '-1', '提现金额不足1元');
+INSERT INTO `log` VALUES ('16', '1', '-1', '提现金额不足1元');
+INSERT INTO `log` VALUES ('17', '1', '-1', '请求报文解析失败');
+INSERT INTO `log` VALUES ('18', '1', '-1', '提现金额不足1元');
+INSERT INTO `log` VALUES ('19', '1', '-1', '请求失败，请重试');
+INSERT INTO `log` VALUES ('20', '1', '-1', '提现金额不足1元');
+INSERT INTO `log` VALUES ('21', '1', '1', '');
 
 -- ----------------------------
 -- Table structure for `to_account`
@@ -105,7 +132,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'eric1@sina.com', 'eric1', '1', '2014-07-14 15:02:44', '277659b549348d6bb7b3527349d2d6a2', '7c4a8d09ca3762af61e59520943dc26494f8941b');
+INSERT INTO `user` VALUES ('1', 'eric1@sina.com', 'eric1', '1', '2014-08-03 17:16:21', '67ded688caa5a003bc317b88d5777c14', '7c4a8d09ca3762af61e59520943dc26494f8941b');
 
 -- ----------------------------
 -- Table structure for `withdrawals_log`
@@ -116,17 +143,15 @@ CREATE TABLE `withdrawals_log` (
   `amount` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
+  `modify_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modify_username` varchar(48) NOT NULL,
   PRIMARY KEY (`wd_id`),
   KEY `customer_id` (`customer_id`),
   CONSTRAINT `withdrawals_log_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of withdrawals_log
 -- ----------------------------
-INSERT INTO `withdrawals_log` VALUES ('1', '101', '6', '0');
-INSERT INTO `withdrawals_log` VALUES ('3', '101', '6', '0');
-INSERT INTO `withdrawals_log` VALUES ('4', '101', '6', '0');
-INSERT INTO `withdrawals_log` VALUES ('5', '101', '6', '0');
-INSERT INTO `withdrawals_log` VALUES ('6', '101', '7', '0');
-INSERT INTO `withdrawals_log` VALUES ('7', '101', '6', '0');
+INSERT INTO `withdrawals_log` VALUES ('8', '101', '6', '0', '2014-08-03 16:21:29', 'eric1');
+INSERT INTO `withdrawals_log` VALUES ('9', '101', '6', '0', '2014-08-03 17:14:38', 'eric1');

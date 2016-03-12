@@ -1,0 +1,16 @@
+<div><%$content%></div>
+<div role="grid" class="dataTables_wrapper form-inline" id="dt_gal_wrapper">
+       
+	<table id="smpl_tbl" class="table table-bordered table-striped table-hover">
+		<tbody>
+			<%foreach from=$bills item=bill%>
+			<tr>
+				<%foreach from=$bill item=b%>
+				<td><a href="/dashboard/downBill?id=<%$b->id%>"><%$b->date%></a></td>
+				<%/foreach%>
+			</tr>
+			<%/foreach%>
+			
+		</tbody>
+	</table>
+</div>

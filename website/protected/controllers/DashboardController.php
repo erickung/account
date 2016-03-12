@@ -1,5 +1,6 @@
 <?php
 require Yii::getPathOfAlias('application.components') . DS . 'WFJGateway.php';
+require Yii::getPathOfAlias('application.extensions.vendor') . DS . 'autoload.php';
 class DashboardController extends FController
 {
 	function actionIndex()
@@ -9,8 +10,6 @@ class DashboardController extends FController
 	
 	function actionIn()
 	{
-
-		
 		$this->render('in');
 	}
 	
@@ -18,7 +17,7 @@ class DashboardController extends FController
 	{
 		$WFJGateway = new WFJGateway();
 		$balance = $WFJGateway->getBalance();
-		if (!$balance) $balance = '000000996980'; 
+		//sif (!$balance) $balance = '000000996980'; 
 
 		if($balance)
 			$this->assign('balance',$balance);
@@ -106,16 +105,16 @@ class DashboardController extends FController
 	
 		if ($resp)
 			Response::respThisPage(true, '', '/dashboard/out');
+		else
+			Response::respThisPage(false, '', '', $WFJGatewayAR->error);
 
 	}
 	
 	function actionWithdrawalsList()
 	{
-		if (isset(Request::$get['status']) && Request::$get['status']=1)
-			$data =  WithdrawalsLog::model()->with('customer')->findAllByAttributes(array('status'=>1));
-		else 
-			$data =  WithdrawalsLog::model()->with('customer')->findAllByAttributes(array('status'=>0));
-	
+		$data =  WithdrawalsLog::model()->with('customer')->findAll(
+			array('order'=>'modify_time desc')
+		);
 		$this->renderPartial('load_withdraws_list', array('data'=>$data));
 	}
 	
@@ -127,5 +126,67 @@ class DashboardController extends FController
 		//$criteria->offset = $this->offset();
 		$data = ToAccountAR::model()->findAll($criteria);
 		$this->renderPartial('load_to_account', array('data'=>$data));
+	}
+	
+	function actionGetWithdrawBills()
+	{
+		$type = (Request::$get['type']) ? intval(Request::$get['type']) : 1;
+		$data = Bills::model()->findAll(
+			array(
+				'condition'=>"type=$type",
+				'order'=>'date desc',
+			)
+		);
+		
+		$bills = array();
+		$j = 0;
+		foreach ($data as $i => $bill)
+		{
+			if($i % 4 == 0 || $i == 0)
+			{
+				$j++;
+				$bills[$j] = array();
+				
+			}
+			array_push($bills[$j], $bill);
+		}
+		$content = Request::$get['type'] == 1 ? '交易状态：1代表成功；0代表正在处理；2代表失败。' : '交易状态：1：已充值；0未处理。';
+		$this->renderPartial('load_bills', array('bills'=>$bills,'content'=>$content));
+	}
+	 
+	
+	function actionUpdateBill()
+	{
+		$sftp = new SftpAR();
+		$sftp->updateFiles();
+		exit;
+	}
+	
+	function actionDownBill()
+	{
+		$bill =  Bills::model()->findByPk(Request::$get['id']);
+		if(!$bill) exit('error!');
+		$file_name = $bill->type == 1 ? "提现_.{$bill->date}.csv" : "消费_.{$bill->date}.csv";
+		header("Content-Type: text/csv");
+		header("Content-Disposition: attachment; filename=$file_name");
+		header('Cache-Control:must-revalidate,post-check=0,pre-check=0');
+		header('Expires:0');
+		header('Pragma:public');
+		$content = explode("\n", $bill->content);
+		if ($bill->type == 1)
+		{
+			$title = "商户号,终端号,交易日期,交易时间,账户号,交易金额,手续费,交易类型,王府井交易流水,中怡交易流水,交易状态\n";
+		} 
+		else 
+		{
+			$title = "商户号,终端号,银联参考号,交易日期,交易时间,账户号,交易金额,手续费,交易类型,王府井交易流水,中怡交易流水,交易状态\n";
+		}
+		array_unshift($content, $title);
+		foreach ($content as $c)
+		{
+			$c = mb_convert_encoding($c, 'gbk', 'utf-8');
+			echo "$c\n";
+		}
+		exit;
 	}
 }

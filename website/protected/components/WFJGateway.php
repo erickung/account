@@ -13,13 +13,7 @@ class WFJGateway
 	const DEFAULT_ERR = '无法识别的错误';
 	const DEFAULT_MEMO = 'yuhaotest';
 
-	private static $config = array(
-			'userNO'=>'wfjtest',
-			'password'=>'wfjtest',
-			'aliasAccount'=>'yhaoTest12344',
-			'channel'=>'wfjtest',
-			'transCode'=>'INQ',
-	);
+	private static $config = array();
 
 	private static $error_code = array(
 			104=> '账户不存在',
@@ -54,11 +48,9 @@ class WFJGateway
 
 
 	public function __construct($mode='test')
-	{
-		if ($mode == 'test')
-			$this->url = "http://202.96.33.145:7044/vaHttpServer";
-		else
-			$this->url = '';
+	{		
+		self::$config = RunTime::wfjConf();
+		$this->url = self::$config['url'];
 	}
 
 	public function getBalance()

@@ -47,13 +47,10 @@
 	            <%$scripts%>
 	        });
 	        
-	       // setInterval(notify, 10000);
-	        
+	       setInterval(notify, 100000);
 	        function notify()
 	        {
-	        	eric.request.ajaxPost('/dashboard/MattersWithDeal',{notify:1},function(count){
-	        		$.sticky("<a href='/dashboard/index' >您有"+count+"个处理事项</a>", {autoclose : 5000, position: "top-right", type: "st-info" });
-	        	});
+	        	eric.request.ajaxPost('/dashboard/UpdateBill');
 	        }
 		</script>	
 	</body>	

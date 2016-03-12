@@ -1,27 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "withdrawals_log".
+ * This is the model class for table "withdraw_bill".
  *
- * The followings are the available columns in table 'withdrawals_log':
- * @property integer $wd_id
- * @property integer $amount
- * @property integer $customer_id
- * @property integer $status
- * @property string $modify_time
- * @property string $modify_username
- *
- * The followings are the available model relations:
- * @property Customer $customer
+ * The followings are the available columns in table 'withdraw_bill':
+ * @property string $id
+ * @property integer $date
+ * @property string $content
  */
-class WithdrawalsLog extends RootActiveRecord
+class WithdrawBill extends RootActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'withdrawals_log';
+		return 'withdraw_bill';
 	}
 
 	/**
@@ -32,7 +26,6 @@ class WithdrawalsLog extends RootActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'customer' => array(self::BELONGS_TO, 'Customer', 'customer_id'),
 		);
 	}
 
@@ -42,12 +35,9 @@ class WithdrawalsLog extends RootActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'wd_id' => 'Wd',
-			'amount' => 'Amount',
-			'customer_id' => 'Customer',
-			'status' => 'Status',
-			'modify_time' => 'Modify Time',
-			'modify_username' => 'Modify Username',
+			'id' => 'ID',
+			'date' => 'Date',
+			'content' => 'Content',
 		);
 	}
 
@@ -69,12 +59,9 @@ class WithdrawalsLog extends RootActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('wd_id',$this->wd_id);
-		$criteria->compare('amount',$this->amount);
-		$criteria->compare('customer_id',$this->customer_id);
-		$criteria->compare('status',$this->status);
-		$criteria->compare('modify_time',$this->modify_time,true);
-		$criteria->compare('modify_username',$this->modify_username,true);
+		$criteria->compare('id',$this->id,true);
+		$criteria->compare('date',$this->date);
+		$criteria->compare('content',$this->content,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -85,7 +72,7 @@ class WithdrawalsLog extends RootActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return WithdrawalsLog the static model class
+	 * @return WithdrawBill the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
